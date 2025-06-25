@@ -1,28 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await Supabase.initialize(
-    url: 'https://hsgjkvjgoadmgcvsyfkq.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzZ2prdmpnb2FkbWdjdnN5ZmtxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg0MjAwMzAsImV4cCI6MjA2Mzk5NjAzMH0.SRzYLQQ-e3jKbwBu5A-3787xVuOrAAm3bJ1pVnm3AO4',
-  );
-
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Inventory Manager',
-      home: const AuthGate(),
-    );
-  }
-}
-
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
 
@@ -73,26 +51,11 @@ class _AuthFormState extends State<AuthForm> {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          TextField(
-            controller: emailController,
-            decoration: const InputDecoration(labelText: 'Email'),
-          ),
-          TextField(
-            controller: passwordController,
-            decoration: const InputDecoration(labelText: 'Password'),
-            obscureText: true,
-          ),
+          TextField(controller: emailController, decoration: const InputDecoration(labelText: 'Email')),
+          TextField(controller: passwordController, decoration: const InputDecoration(labelText: 'Password'), obscureText: true),
           const SizedBox(height: 12),
-          ElevatedButton(
-            onPressed: _submit,
-            child: Text(isLogin ? 'Login' : 'Sign Up'),
-          ),
-          TextButton(
-            onPressed: () => setState(() => isLogin = !isLogin),
-            child: Text(isLogin
-                ? 'No account? Sign up'
-                : 'Already have an account? Log in'),
-          ),
+          ElevatedButton(onPressed: _submit, child: Text(isLogin ? 'Login' : 'Sign Up')),
+          TextButton(onPressed: () => setState(() => isLogin = !isLogin), child: Text(isLogin ? 'No account? Sign up' : 'Already have an account? Log in')),
         ]),
       ),
     );
@@ -108,11 +71,10 @@ class HomePage extends StatelessWidget {
         const Text('Welcome! You are logged in.'),
         const SizedBox(height: 20),
         ElevatedButton(
-          onPressed: () {
-            Supabase.instance.client.auth.signOut();
-          },
-          child: const Text('Log out'),
-        )
+            onPressed: () {
+              Supabase.instance.client.auth.signOut();
+            },
+            child: const Text('Log out'))
       ]),
     );
   }
